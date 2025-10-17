@@ -34,7 +34,7 @@ Unab Store es una aplicación móvil diseñada para brindar a los usuarios una e
 
 ---
 
-## 👨‍💻 Autores  
-- Desarrollado por **[Tu Nombre / Equipo]**  
+## 👨‍💻 Autor  
+- Desarrollado por **[Julian Lizcano]**  
 
 
