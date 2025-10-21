@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "972128848673",
+    "project_id": "loginfirebase-ce66c",
+    "storage_bucket": "loginfirebase-ce66c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972128848673:android:ed33fe0c9d9562a16a0c60",
+        "android_client_info": {
+          "package_name": "me.julianlizcano.unabstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzTYVxLlcLoin1s0oMwi9DFkaNw4pKEbI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

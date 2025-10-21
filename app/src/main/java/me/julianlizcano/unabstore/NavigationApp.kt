@@ -27,7 +27,12 @@ fun NavigationApp() {
             LoginScreen(onClickRegister = {
                 navControler.navigate("Register")
 
-            })
+            }, onSuccessfulLogin = {
+                navControler.navigate("home"){
+                    popUpTo("login"){inclusive = true}
+                }
+            }
+            )
         }
         composable(route = "register") {
             RegisterScreen(onClickBack = {
