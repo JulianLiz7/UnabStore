@@ -38,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -61,6 +62,8 @@ fun LoginScreen(onClickRegister :()->Unit = {}, onSuccessfulLogin :()->Unit = {}
     var inputEmail by remember { mutableStateOf("") }
     var inputPassword by remember { mutableStateOf("") }
     var loginError by remember { mutableStateOf("") }
+    var emailError by remember { mutableStateOf("") }
+    var passwordError by remember { mutableStateOf("") }
 
     Scaffold { paddingValues ->
         Column(
@@ -104,8 +107,20 @@ fun LoginScreen(onClickRegister :()->Unit = {}, onSuccessfulLogin :()->Unit = {}
                         tint = Color(0xFF666666) // Color gris
                     )
                 },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+
                 modifier = Modifier.fillMaxWidth(),
+                supportingText = {
+                    if (emailError.isEmpty()){
+                        Text(
+                            text = emailError,
+                            color = Color.Red
+                        )
+                    }
+                } ,
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.None,
+                    autoCorrect = false,
+                    keyboardType = KeyboardType.Email),
                 shape = RoundedCornerShape(12.dp),
 
                 )
@@ -127,6 +142,15 @@ fun LoginScreen(onClickRegister :()->Unit = {}, onSuccessfulLogin :()->Unit = {}
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 modifier = Modifier.fillMaxWidth(),
+                supportingText = {
+                    if (passwordError.isEmpty()){
+                        Text(
+                            text = passwordError,
+                            color = Color.Red
+                        )
+                    }
+                },
+
                 shape = RoundedCornerShape(12.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color(0xFF6200EE), // Color morado
@@ -148,6 +172,13 @@ fun LoginScreen(onClickRegister :()->Unit = {}, onSuccessfulLogin :()->Unit = {}
             Button(
                 onClick = {
 
+                    val isValidEmail: Boolean = validateEmail(inputEmail).first
+                    val isValidPassor = validatePassword(inputPassword).first
+
+                    emailError = validateEmail(inputEmail).second
+                    passwordError = validatePassword(inputPassword).second
+
+                    if (isValidEmail && isValidPassor){
                     auth.signInWithEmailAndPassword(inputEmail, inputPassword)
                         .addOnCompleteListener (activity) { task ->
                             if (task.isSuccessful){
@@ -162,6 +193,7 @@ fun LoginScreen(onClickRegister :()->Unit = {}, onSuccessfulLogin :()->Unit = {}
                             }
 
                         }
+                    }
 
                 },
                 modifier = Modifier
