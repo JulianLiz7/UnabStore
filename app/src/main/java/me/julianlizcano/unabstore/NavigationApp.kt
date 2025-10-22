@@ -37,6 +37,10 @@ fun NavigationApp() {
         composable(route = "register") {
             RegisterScreen(onClickBack = {
                 navControler.popBackStack()
+            }, onSuccessfulRegister = {
+                navControler.navigate("home"){
+                    popUpTo(0)
+                }
             })
         }
         composable(route = "home") {
