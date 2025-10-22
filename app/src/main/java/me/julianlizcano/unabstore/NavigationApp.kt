@@ -8,6 +8,8 @@ import androidx.navigation.NavHost
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 @Preview
 @Composable
@@ -15,7 +17,17 @@ import androidx.navigation.compose.rememberNavController
 fun NavigationApp() {
 
     val navControler = rememberNavController()
-    val startDestination = "login"
+    var startDestination = "login"
+
+    val auth = Firebase.auth
+    var currentUser = auth.currentUser
+
+    if (currentUser != null){
+        startDestination = "home"
+    }else{
+        startDestination = "login"
+    }
+
 
     NavHost(
         navController = navControler,
@@ -44,7 +56,11 @@ fun NavigationApp() {
             })
         }
         composable(route = "home") {
-            HomeScreen()
+            HomeScreen(onClickLogout = {
+                navControler.navigate("login"){
+                    popUpTo(0)
+                }
+            })
         }
     }
 }
